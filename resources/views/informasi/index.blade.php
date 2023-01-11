@@ -51,7 +51,7 @@
                 {data: 'tautan', name: 'tautan'},
                 {data: 'kategori', name: 'kategori'},
                 {data: 'subKategori', name: 'subKategori'},
-                {data: 'deksripsi', name: 'deksripsi'},
+                {data: 'deskripsi', name: 'deskripsi'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });

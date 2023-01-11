@@ -47,7 +47,7 @@
             ajax: "{{ route('pekerjaan') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'namaPekerjaan', name: 'namaPekerjaan'},
+                {data: 'namaPerusahaan', name: 'namaPerusahaan'},
                 {data: 'posisiPekerjaan', name: 'posisiPekerjaan'},
                 {data: 'kategoriPekerjaan', name: 'kategoriPekerjaan'},
                 {data: 'lokasiPekerjaan', name: 'lokasiPekerjaan'},

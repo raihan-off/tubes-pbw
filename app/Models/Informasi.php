@@ -16,4 +16,6 @@ class Informasi extends Model
         'subKategori',
         'deskripsi'
     ];
+
+    protected $table = 'informations';
 }

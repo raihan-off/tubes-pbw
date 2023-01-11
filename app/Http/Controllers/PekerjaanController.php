@@ -12,16 +12,15 @@ class PekerjaanController extends Controller
     {
         if ($request->ajax()) {
 
-            //$data = Pekerjaan::select('*');
-            //$data = Pekerjaan::latest()->get();
-            $data = Pekerjaan::all([
-                'id',
-                'namaPerusahaan',
-                'posisiPekerjaan',
-                'kategoriPekerjaan',
-                'lokasiPekerjaan',
-                'deksripsiPekerjaan'
-            ]);
+            //$data = Informasi::all();
+            $data = Pekerjaan::latest()->get();
+            // $data = Pekerjaan::all([
+            //     'namaPerusahaan',
+            //     'posisiPekerjaan',
+            //     'kategoriPekerjaan',
+            //     'lokasiPekerjaan',
+            //     'deksripsiPekerjaan'
+            // ]);
 
             return Datatables::of($data)
                 ->addIndexColumn()

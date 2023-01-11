@@ -15,7 +15,8 @@ class Pekerjaan extends Model
         'kategoriPekerjaan',
         'lokasiPekerjaan',
         'deskripsiPekerjaan',
-        'create_at',
-        'status'
+        'status',
     ];
+
+    protected $table = 'works';
 }
