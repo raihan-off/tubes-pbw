@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pekerjaan;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class PekerjaanController extends Controller
 {
@@ -13,7 +13,15 @@ class PekerjaanController extends Controller
         if ($request->ajax()) {
 
             //$data = Pekerjaan::select('*');
-            $data = Pekerjaan::latest()->get();
+            //$data = Pekerjaan::latest()->get();
+            $data = Pekerjaan::all([
+                'id',
+                'namaPerusahaan',
+                'posisiPekerjaan',
+                'kategoriPekerjaan',
+                'lokasiPekerjaan',
+                'deksripsiPekerjaan'
+            ]);
 
             return Datatables::of($data)
                 ->addIndexColumn()

@@ -16,6 +16,6 @@ class Pekerjaan extends Model
         'lokasiPekerjaan',
         'deskripsiPekerjaan',
         'create_at',
-        'status',
+        'status'
     ];
 }
