@@ -73,7 +73,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Deksripsi</label>
                                         <div class="col-sm-12">
-                                            <textarea id="Deskripsi" name="deksirpsi" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
+                                            <textarea id="Deskripsi" name="deskripsi" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-offset-2 col-sm-10">
@@ -85,7 +85,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -150,7 +149,7 @@
         //Edit
         $('body').on('click', '.editInformasi', function () {
             var website_id = $(this).data('id');
-            $.get("{{ route('informasi') }}" +'/' + website_id +'/edit', function (data) {
+            $.get("{{ route('informasi.edit') }}" +'/' + website_id +'/edit', function (data) {
                 $('#modelHeading').html("Edit Website");
                 $('#saveBtn').val("edit-user");
                 $('#ajaxModel').modal('show');
@@ -167,10 +166,10 @@
         $('body').on('click', '.deleteInformasi', function () {
     
             var website_id = $(this).data("id");
-            confirm("Yakin hapus data !");
+            confirm("Yakin hapus data ?");
             $.ajax({
                 type: "DELETE",
-                url: "{{ route('informasi') }}"+'/'+website_id,
+                url: "{{ route('informasi.delete') }}"+'/'+website_id,
                 success: function (data) {
                     table.draw();
                 },

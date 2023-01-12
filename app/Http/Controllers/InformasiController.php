@@ -42,13 +42,14 @@ class InformasiController extends Controller
 
     public function tambahInformasi(Request $request)
     {
-        Informasi::updateOrCreate(
-            //['id' => $request->id],
-            ['website' => $request->website],
-            ['tautan' => $request->tautan],
-            ['kategori' => $request->kategori],
-            ['subKategori' => $request->subKategori],
-            ['deskripsi' => $request->deskripsi],
+        Informasi::create(
+            [
+                'website' => $request->website,
+                'tautan' => $request->tautan,
+                'kategori' => $request->kategori,
+                'subKategori' => $request->subKategori,
+                'deskripsi' => $request->deskripsi
+            ]
         );
 
         return response()->json(['success' => 'Data website berhasil ditambahkan']);

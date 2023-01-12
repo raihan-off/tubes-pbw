@@ -38,9 +38,20 @@ class PekerjaanController extends Controller
         return view('pekerjaan.index');
     }
 
-    public function tambahPekerjaan()
+    public function tambahPekerjaan(Request $request)
     {
-        //
+        Pekerjaan::create(
+            [
+                'namaPerusahaan' => $request->namaPerusahaan,
+                'posisiPekerjaan' => $request->posisiPekerjaan,
+                'kategoriPekerjaan' => $request->kategoriPekerjaan,
+                'lokasiPekerjaan' => $request->lokasiPekerjaan,
+                'deskripsiPekerjaan' => $request->deskripsiPekerjaan,
+                'status' => $request->status
+            ]
+        );
+
+        return response()->json(['success' => 'Data pekerjaan berhasil ditambahkan']);
     }
 
     public function editPekerjaan()

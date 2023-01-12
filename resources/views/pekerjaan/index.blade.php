@@ -29,6 +29,7 @@
                                 <th>Kategori</th>
                                 <th>Lokasi</th>
                                 <th>Deksripsi</th>
+                                <th>Status</th>
                                 <th width="280px">Action</th>
                             </tr>
                         </thead>
@@ -36,11 +37,72 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="modal fade" id="ajaxModel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modelHeading"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="pekerjaanForm" name="pekerjaanForm" class="form-horizontal">
+                                <input type="hidden" name="website_id" id="website_id">
+                                    <div class="form-group">
+                                        <label for="name" class="col-sm-2 control-label">Nama Perusahaan</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" id="namaPerusahaan" name="namaPerusahaan" placeholder="Masukkan Nama Perusahaan" maxlength="50" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Posisi Pekerjaan</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="posisiPekerjaan" name="posisiPekerjaan" placeholder="Masukkan Posisi Pekerjaan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Kategori Pekerjaan</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="kategoriPekerjaan" name="kategoriPekerjaan" placeholder="Masukkan Kategori" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Lokasi</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="lokasiPekerjaan" name="lokasiPekerjaan" placeholder="Masukkan Lokasi" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Deksripsi</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="deskripsiPekerjaan" name="deskripsiPekerjaan" placeholder="Masukkan Deskripsi Pekerjaan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Status</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="status" name="status" placeholder="Masukkan Deskripsi Pekerjaan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
+                                    </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $(function () {
         var table = $('.data-table').DataTable({
             processing: true,
@@ -53,8 +115,42 @@
                 {data: 'kategoriPekerjaan', name: 'kategoriPekerjaan'},
                 {data: 'lokasiPekerjaan', name: 'lokasiPekerjaan'},
                 {data: 'deskripsiPekerjaan', name: 'deskripsiPekerjaan'},
+                {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
+        });
+    });
+
+        //Click Add Button
+        $('#createNewPekerjaan').click(function () {
+            $('#saveBtn').val("create-product");
+            $('#website_id').val('');
+            $('#pekerjaanForm').trigger("reset");
+            $('#modelHeading').html("Tambah Daftar Pekerjaan");
+            $('#ajaxModel').modal('show');
+        });
+
+        //Create data
+        $('#saveBtn').click(function (e) {
+            e.preventDefault();
+            $(this).html('Sending..');
+
+            $.ajax({
+            data: $('#pekerjaanForm').serialize(),
+            url: "{{ route('pekerjaan.add') }}",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+
+                $('#pekerjaanForm').trigger("reset");
+                $('#ajaxModel').modal('hide');
+                table.draw();
+            
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#saveBtn').html('Save Changes');
+            }
         });
     });
     </script>

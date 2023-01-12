@@ -41,7 +41,7 @@ Route::get('/user', [UserController::class, 'tampilUser'])->name('user');
 Route::get('/informasi', [InformasiController::class, 'tampilInformasi'])->name('informasi');
 Route::post('/tambahInformasi', [InformasiController::class, 'tambahInformasi'])->name('informasi.add');
 Route::post('/editInformasi', [InformasiController::class, 'editInformasi'])->name('informasi.edit');
-//Route::delete('/deleteInformasi', [InformasiController::class, 'deleteInformasi'])->name('informasi.delete');
+Route::delete('/deleteInformasi', [InformasiController::class, 'deleteInformasi'])->name('informasi.delete');
 
 Route::get('/pekerjaan', [PekerjaanController::class, 'tampilPekerjaan'])->name('pekerjaan');
 Route::post('/tambahPekerjaan', [PekerjaanController::class, 'tambahPekerjaan'])->name('pekerjaan.add');
