@@ -152,6 +152,21 @@
                 $('#saveBtn').html('Save Changes');
             }
         });
+
+        //Delete 
+        $('body').on('click', '.deletePekerjaan', function () {
+            var website_id = $(this).data("id");
+            confirm("Anda yakin ingin menghapus data ?");
+            $.ajax({
+                type: "DELETE",
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        });
     });
     </script>
 </x-app-layout>

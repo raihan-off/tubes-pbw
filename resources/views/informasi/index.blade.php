@@ -147,29 +147,28 @@
         });
 
         //Edit
-        $('body').on('click', '.editInformasi', function () {
-            var website_id = $(this).data('id');
-            $.get("{{ route('informasi.edit') }}" +'/' + website_id +'/edit', function (data) {
-                $('#modelHeading').html("Edit Website");
-                $('#saveBtn').val("edit-user");
-                $('#ajaxModel').modal('show');
-                $('#website_id').val(data.id);
-                $('#website').val(data.website);
-                $('#tautan').val(data.tautan);
-                $('#kategori').val(data.kategori);
-                $('#subKategori').val(data.subKategori);
-                $('#deskripsi').val(data.deskripsi);
-            })
-        });
+        // $('body').on('click', '.editInformasi', function () {
+        //     var website_id = $(this).data('id');
+        //     $.get("{{ route('informasi.edit') }}" +'/' + website_id +'/edit', function (data) {
+        //         $('#modelHeading').html("Edit Website");
+        //         $('#saveBtn').val("edit-user");
+        //         $('#ajaxModel').modal('show');
+        //         $('#website_id').val(data.id);
+        //         $('#website').val(data.website);
+        //         $('#tautan').val(data.tautan);
+        //         $('#kategori').val(data.kategori);
+        //         $('#subKategori').val(data.subKategori);
+        //         $('#deskripsi').val(data.deskripsi);
+        //     })
+        // });
 
         //Delete 
         $('body').on('click', '.deleteInformasi', function () {
     
             var website_id = $(this).data("id");
-            confirm("Yakin hapus data ?");
+            confirm("Anda yakin ingin menghapus data ?");
             $.ajax({
                 type: "DELETE",
-                url: "{{ route('informasi.delete') }}"+'/'+website_id,
                 success: function (data) {
                     table.draw();
                 },

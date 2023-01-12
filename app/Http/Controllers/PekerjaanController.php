@@ -28,7 +28,7 @@ class PekerjaanController extends Controller
 
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editPekerjaan">Edit</a>';
 
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deletePekerjaan">Delete</a>';
+                    $btn = $btn . ' <a href="' . route("pekerjaan.delete", ["id" => $row->id]) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deletePekerjaan">Delete</a>';
 
                     return $btn;
                 })
@@ -59,8 +59,9 @@ class PekerjaanController extends Controller
         //
     }
 
-    public function hapusPekerjaan()
+    public function hapusPekerjaan($id)
     {
-        //
+        Pekerjaan::find($id)->delete();
+        return view('pekerjaan.index');
     }
 }

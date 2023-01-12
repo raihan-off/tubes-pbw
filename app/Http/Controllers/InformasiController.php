@@ -28,9 +28,9 @@ class InformasiController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
 
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editInformasi">Edit</a>';
+                $btn = '<a href="{{ route(informasi.edit) }}" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editInformasi">Edit</a>';
 
-                $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteInformasi">Delete</a>';
+                $btn = $btn . ' <a href="' . route("informasi.delete", ["id" => $row->id]) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteInformasi">Delete</a>';
 
                 return $btn;
             })
@@ -64,6 +64,6 @@ class InformasiController extends Controller
     public function hapusInformasi($id)
     {
         Informasi::find($id)->delete();
-        return response()->json(['success' => 'Data website berhasil dihapus']);
+        return view('informasi.index');
     }
 }
