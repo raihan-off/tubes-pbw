@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Daftar Website Informasi') }}
         </h2>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
@@ -18,7 +18,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="container">
-                    <a class="btn btn-success" href="javascript:void(0)" id="createNewInformasi"> Tambah Website</a>
+                    <h1 class="mt-5 mb-2">Tabel Daftar Informasi</h1>
+                    <a class="btn btn-success mt-5 mb-5" href="javascript:void(0)" id="createNewInformasi"> Tambah Website</a>
                     <table class="table table-bordered data-table">
                         <thead>
                             <tr>
@@ -48,31 +49,31 @@
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 control-label">Nama Website</label>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" id="website" name="website" placeholder="Masukkan nama website" value="" maxlength="50" required>
+                                            <input type="text" class="form-control" id="website" name="website" placeholder="Masukkan nama website" maxlength="50" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Tautan</label>
                                         <div class="col-sm-12">
-                                            <textarea id="tautan" name="tautan" required="" placeholder="Masukkan Tautan" class="form-control" required></textarea>
+                                            <textarea id="tautan" name="tautan" placeholder="Masukkan Tautan" class="form-control" required></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Kategori</label>
                                         <div class="col-sm-12">
-                                            <textarea id="kategori" name="kategori" required="" placeholder="Masukkan Kategori" class="form-control" required></textarea>
+                                            <textarea id="kategori" name="kategori" placeholder="Masukkan Kategori" class="form-control" required></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Sub Kategori</label>
                                         <div class="col-sm-12">
-                                            <textarea id="subKategori" name="subKategori" required="" placeholder="Masukkan Sub Kategori" class="form-control" required></textarea>
+                                            <textarea id="subKategori" name="subKategori" placeholder="Masukkan Sub Kategori" class="form-control" required></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Deksripsi</label>
                                         <div class="col-sm-12">
-                                            <textarea id="Deskripsi" name="deksirpsi" required="" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
+                                            <textarea id="Deskripsi" name="deksirpsi" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-offset-2 col-sm-10">
@@ -130,7 +131,7 @@
 
             $.ajax({
             data: $('#websiteForm').serialize(),
-            url: "{{ route('informasi') }}",
+            url: "{{ route('informasi.add') }}",
             type: "POST",
             dataType: 'json',
             success: function (data) {

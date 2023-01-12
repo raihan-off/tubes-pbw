@@ -16,7 +16,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="container">
-                    <h1>Data User</h1>
+                    <h1 class="mt-5 mb-5">Data User</h1>
                     <table class="table table-bordered data-table">
                         <thead>
                             <tr>

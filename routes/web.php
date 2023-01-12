@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\PekerjaanController;
+use App\Models\Pekerjaan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,15 @@ Route::middleware('auth')->group(function () {
 // })->middleware(['auth', 'verified'])->name('user');
 
 Route::get('/user', [UserController::class, 'tampilUser'])->name('user');
+
 Route::get('/informasi', [InformasiController::class, 'tampilInformasi'])->name('informasi');
+Route::post('/tambahInformasi', [InformasiController::class, 'tambahInformasi'])->name('informasi.add');
+Route::post('/editInformasi', [InformasiController::class, 'editInformasi'])->name('informasi.edit');
+//Route::delete('/deleteInformasi', [InformasiController::class, 'deleteInformasi'])->name('informasi.delete');
+
 Route::get('/pekerjaan', [PekerjaanController::class, 'tampilPekerjaan'])->name('pekerjaan');
+Route::post('/tambahPekerjaan', [PekerjaanController::class, 'tambahPekerjaan'])->name('pekerjaan.add');
+Route::post('/editPekerjaan', [PekerjaanController::class, 'editPekerjaan'])->name('pekerjaan.edit');
+//Route::delete('/pekerjaan', [PekerjaanController::class, 'deleteInformasi'])->name('pekerjaan.delete');
 
 require __DIR__ . '/auth.php';

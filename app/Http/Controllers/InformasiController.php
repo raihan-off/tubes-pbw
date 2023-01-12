@@ -46,8 +46,8 @@ class InformasiController extends Controller
             //['id' => $request->id],
             ['website' => $request->website],
             ['tautan' => $request->tautan],
-            ['kategori' => $request->karegori],
-            ['subKaregori' => $request->subKategori],
+            ['kategori' => $request->kategori],
+            ['subKategori' => $request->subKategori],
             ['deskripsi' => $request->deskripsi],
         );
 

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Daftar Pekerjaan') }}
         </h2>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
@@ -18,7 +18,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="container">
-                    <a class="btn btn-success" href="javascript:void(0)" id="createNewPekerjaan"> Tambah Pekerjaan</a>
+                    <h1 class="mt-5 mb-2">Tabel Daftar Pekerjaan</h1>
+                    <a class="btn btn-success mt-5 mb-5" href="javascript:void(0)" id="createNewPekerjaan"> Tambah Pekerjaan</a>
                     <table class="table table-bordered data-table">
                         <thead>
                             <tr>
