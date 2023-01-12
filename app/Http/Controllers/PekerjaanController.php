@@ -37,4 +37,19 @@ class PekerjaanController extends Controller
         }
         return view('pekerjaan.index');
     }
+
+    public function tambahPekerjaan()
+    {
+        //
+    }
+
+    public function editPekerjaan()
+    {
+        //
+    }
+
+    public function hapusPekerjaan()
+    {
+        //
+    }
 }

@@ -35,11 +35,68 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="modal fade" id="ajaxModel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modelHeading"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="websiteForm" name="websiteForm" class="form-horizontal">
+                                <input type="hidden" name="website_id" id="website_id">
+                                    <div class="form-group">
+                                        <label for="name" class="col-sm-2 control-label">Nama Website</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" id="website" name="website" placeholder="Masukkan nama website" value="" maxlength="50" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Tautan</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="tautan" name="tautan" required="" placeholder="Masukkan Tautan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Kategori</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="kategori" name="kategori" required="" placeholder="Masukkan Kategori" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Sub Kategori</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="subKategori" name="subKategori" required="" placeholder="Masukkan Sub Kategori" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Deksripsi</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="Deskripsi" name="deksirpsi" required="" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
+                                    </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        //Render Table
         $(function () {
             var table = $('.data-table').DataTable({
             processing: true,
@@ -54,6 +111,72 @@
                 {data: 'deskripsi', name: 'deskripsi'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
+        });
+    });
+
+        //Click Add Button
+        $('#createNewInformasi').click(function () {
+            $('#saveBtn').val("create-product");
+            $('#website_id').val('');
+            $('#websiteForm').trigger("reset");
+            $('#modelHeading').html("Tambah Daftar Website");
+            $('#ajaxModel').modal('show');
+        });
+
+        //Create data
+        $('#saveBtn').click(function (e) {
+            e.preventDefault();
+            $(this).html('Sending..');
+
+            $.ajax({
+            data: $('#websiteForm').serialize(),
+            url: "{{ route('informasi') }}",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+
+                $('#websiteForm').trigger("reset");
+                $('#ajaxModel').modal('hide');
+                table.draw();
+            
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#saveBtn').html('Save Changes');
+            }
+        });
+
+        //Edit
+        $('body').on('click', '.editInformasi', function () {
+            var website_id = $(this).data('id');
+            $.get("{{ route('informasi') }}" +'/' + website_id +'/edit', function (data) {
+                $('#modelHeading').html("Edit Website");
+                $('#saveBtn').val("edit-user");
+                $('#ajaxModel').modal('show');
+                $('#website_id').val(data.id);
+                $('#website').val(data.website);
+                $('#tautan').val(data.tautan);
+                $('#kategori').val(data.kategori);
+                $('#subKategori').val(data.subKategori);
+                $('#deskripsi').val(data.deskripsi);
+            })
+        });
+
+        //Delete 
+        $('body').on('click', '.deleteInformasi', function () {
+    
+            var website_id = $(this).data("id");
+            confirm("Yakin hapus data !");
+            $.ajax({
+                type: "DELETE",
+                url: "{{ route('informasi') }}"+'/'+website_id,
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
         });
     });
     </script>
