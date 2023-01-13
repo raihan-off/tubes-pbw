@@ -54,9 +54,10 @@ class PekerjaanController extends Controller
         return response()->json(['success' => 'Data pekerjaan berhasil ditambahkan']);
     }
 
-    public function editPekerjaan()
+    public function editPekerjaan($id)
     {
-        //
+        $data = Pekerjaan::find($id);
+        return response()->json($data);
     }
 
     public function hapusPekerjaan($id)

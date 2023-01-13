@@ -107,7 +107,27 @@
         var table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('pekerjaan') }}",
+            ajax: {
+                url: "{{ route('pekerjaan') }}",
+                complete: () => {
+                    //Edit
+                    $('.editPekerjaan').on('click', function () {
+                        var website_id = $(this).data('id');
+                        $.get("{{ route('pekerjaan.edit') }}" +'/' + website_id, function (data) {
+                            $('#modelHeading').html("Edit Pekerjaan");
+                            $('#saveBtn').val("edit-user");
+                            $('#ajaxModel').modal('show');
+                            $('#website_id').val(data.id);
+                            $('#namaPerusahaan').val(data.namaPerusahaan);
+                            $('#posisiPekerjaan').val(data.posisiPekerjaan);
+                            $('#kategoriPekerjaan').val(data.kategoriPekerjaan);
+                            $('#lokasiPekerjaan').val(data.lokasiPekerjaan);
+                            $('#deskripsiPekerjaan').val(data.deskripsiPekerjaan);
+                            $('#status').val(data.status);
+                        });
+                    });
+                }
+            },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'namaPerusahaan', name: 'namaPerusahaan'},
@@ -152,6 +172,22 @@
                 $('#saveBtn').html('Save Changes');
             }
         });
+
+        // $('body').on('click', '.editPekerjaan', function () {
+        //     var website_id = $(this).data('id');
+        //     $.get("{{ route('pekerjaan.edit') }}" +'/' + website_id +'/edit', function (data) {
+        //         $('#modelHeading').html("Edit Website");
+        //         $('#saveBtn').val("edit-user");
+        //         $('#ajaxModel').modal('show');
+        //         $('#website_id').val(data.id);
+        //         $('#namaPerusahaan').val(data.namaPerusahaan);
+        //         $('#posisiPekerjaan').val(data.posisiPekerjaan);
+        //         $('#kategoriPekerjaan').val(data.kategoriPekerjaan);
+        //         $('#lokasiPekerjaan').val(data.lokasiPekerjaan);
+        //         $('#deskripsiPekerjaan').val(data.deskripsiPekerjaan);
+        //         $('#status').val(data.status);
+        //     })
+        // });
 
         //Delete 
         $('body').on('click', '.deletePekerjaan', function () {

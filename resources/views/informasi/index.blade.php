@@ -73,11 +73,11 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Deksripsi</label>
                                         <div class="col-sm-12">
-                                            <textarea id="Deskripsi" name="deskripsi" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
+                                            <textarea id="deskripsi" name="deskripsi" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
+                                    <button type="submit" class="btn btn-primary" id="saveBtn">Save changes
                                     </button>
                                     </div>
                                 </form>
@@ -101,7 +101,26 @@
             var table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('informasi') }}",
+            ajax: {
+                url: "{{ route('informasi') }}",
+                complete: () => {
+                    //Edit
+                    $('.editInformasi').on('click', function () {
+                        var website_id = $(this).data('id');
+                        $.get("{{ route('informasi.edit') }}" +'/' + website_id, function (data) {
+                            $('#modelHeading').html("Edit Website");
+                            $('#saveBtn').val("edit-user");
+                            $('#ajaxModel').modal('show');
+                            $('#website_id').val(data.id);
+                            $('#website').val(data.website);
+                            $('#tautan').val(data.tautan);
+                            $('#kategori').val(data.kategori);
+                            $('#subKategori').val(data.subKategori);
+                            $('#deskripsi').val(data.deskripsi);
+                        });
+                    });
+                }
+            },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'website', name: 'website'},
@@ -146,8 +165,31 @@
             }
         });
 
+        //Edit function
+        // $('.saveEditBtn').click(function (e) {
+        //     e.preventDefault();
+        //     $(this).html('Sending..');
+
+        //     $.ajax({
+        //     data: $('#websiteForm').serialize(),
+        //     url: "{{ route('informasi.edit') }}",
+        //     type: "POST",
+        //     dataType: 'json',
+        //     success: function (data) {
+
+        //         $('#websiteForm').trigger("reset");
+        //         $('#ajaxModel').modal('hide');
+        //         table.draw();
+            
+        //     },
+        //     error: function (data) {
+        //         console.log('Error:', data);
+        //         $('#saveEditBtn').html('Save Changes');
+        //     }
+        // });
+
         //Edit
-        // $('body').on('click', '.editInformasi', function () {
+        // $('.edit').on('click', function () {
         //     var website_id = $(this).data('id');
         //     $.get("{{ route('informasi.edit') }}" +'/' + website_id +'/edit', function (data) {
         //         $('#modelHeading').html("Edit Website");

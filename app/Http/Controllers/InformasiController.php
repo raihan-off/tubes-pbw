@@ -28,7 +28,7 @@ class InformasiController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
 
-                $btn = '<a href="{{ route(informasi.edit) }}" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editInformasi">Edit</a>';
+                $btn = '<a href="javascript:void(0)" id="ngedit" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editInformasi">Edit</a>';
 
                 $btn = $btn . ' <a href="' . route("informasi.delete", ["id" => $row->id]) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteInformasi">Delete</a>';
 
