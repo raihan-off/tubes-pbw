@@ -78,6 +78,49 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="ajaxModel2" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modelHeading"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="bukuFormDua" name="bukuFormDua" class="form-horizontal">
+                            <input type="hidden" name="website_id2" id="website_id2">
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-2 control-label">Buku</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="judul2" name="judul2" placeholder="Masukkan Judul Buku" maxlength="50" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Penerbit</label>
+                                    <div class="col-sm-12">
+                                        <textarea id="penerbit2" name="penerbit2" placeholder="Masukkan Penerbit" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Kategori</label>
+                                    <div class="col-sm-12">
+                                        <textarea id="kategori2" name="kategori2" placeholder="Masukkan Kategori" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Jumlah Halaman</label>
+                                    <div class="col-sm-12">
+                                        <textarea id="jumlahHalaman2" name="jumlahHalaman2" placeholder="Masukkan Jumlah Halaman" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary" id="saveBtnEdit">Save changes
+                                </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -90,7 +133,6 @@
     });
 
     //Render Table
-    $(function () {
         var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
@@ -99,16 +141,16 @@
                 complete: () => {
                     //Edit
                     $('.editBuku').on('click', function () {
-                        var website_id = $(this).data('id');
-                        $.get("{{ route('buku.edit') }}" +'/' + website_id, function (data) {
+                        var website_id2 = $(this).data('id');
+                        $.get("{{ route('buku.edit') }}" +'/' + website_id2, function (data) {
                             $('#modelHeading').html("Edit Buku");
                             $('#saveBtn').val("edit-user");
-                            $('#ajaxModel').modal('show');
-                            $('#website_id').val(data.id);
-                            $('#judul').val(data.judul);
-                            $('#penerbit').val(data.penerbit);
-                            $('#kategori').val(data.kategori);
-                            $('#jumlahHalaman').val(data.jumlahHalaman);
+                            $('#ajaxModel2').modal('show');
+                            $('#website_id2').val(data.id);
+                            $('#judul2').val(data.judul);
+                            $('#penerbit2').val(data.penerbit);
+                            $('#kategori2').val(data.kategori);
+                            $('#jumlahHalaman2').val(data.jumlahHalaman);
                         });
                     });
                 }
@@ -122,7 +164,7 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
-    });
+
         //Click Add Button
         $('#createNewBuku').click(function () {
             $('#saveBtn').val("create-product");
@@ -152,6 +194,30 @@
             error: function (data) {
                 console.log('Error:', data);
                 $('#saveBtn').html('Save Changes');
+            }
+        });
+    });
+
+        //Edit Event
+        $('#saveBtnEdit').click(function (e) {
+            e.preventDefault();
+            $(this).html('Sending..');
+            var website_id = $(this).data('id');
+
+            $.ajax({
+            data: $('#bukuFormDua').serialize(),
+            url: "{{ route('buku.ubah') }}" +'/' + website_id2.value,
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                $('#bukuFormDua').trigger("reset");
+                $('#ajaxModel2').modal('hide');
+                table.draw();
+            
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#saveBtnEdit').html('Save Changes');
             }
         });
 

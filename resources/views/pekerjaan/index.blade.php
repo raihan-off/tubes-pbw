@@ -84,7 +84,62 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
+                                    <button type="submit" class="btn btn-primary" id="saveBtn">Save changes
+                                    </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="ajaxModel2" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modelHeading"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="pekerjaanFormDua" name="pekerjaanFormDua" class="form-horizontal">
+                                <input type="hidden" name="website_id2" id="website_id2">
+                                    <div class="form-group">
+                                        <label for="name" class="col-sm-2 control-label">Nama Perusahaan</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" id="namaPerusahaan2" name="namaPerusahaan2" placeholder="Masukkan Nama Perusahaan" maxlength="50" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Posisi Pekerjaan</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="posisiPekerjaan2" name="posisiPekerjaan2" placeholder="Masukkan Posisi Pekerjaan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Kategori Pekerjaan</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="kategoriPekerjaan2" name="kategoriPekerjaan2" placeholder="Masukkan Kategori" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Lokasi</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="lokasiPekerjaan2" name="lokasiPekerjaan2" placeholder="Masukkan Lokasi" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Deksripsi</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="deskripsiPekerjaan2" name="deskripsiPekerjaan2" placeholder="Masukkan Deskripsi Pekerjaan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Status</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="status2" name="status2" placeholder="Masukkan Deskripsi Pekerjaan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary" id="saveBtnEdit">Save changes
                                     </button>
                                     </div>
                                 </form>
@@ -103,7 +158,7 @@
             }
         });
 
-        $(function () {
+
         var table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
@@ -112,18 +167,18 @@
                 complete: () => {
                     //Edit
                     $('.editPekerjaan').on('click', function () {
-                        var website_id = $(this).data('id');
-                        $.get("{{ route('pekerjaan.edit') }}" +'/' + website_id, function (data) {
+                        var website_id2 = $(this).data('id');
+                        $.get("{{ route('pekerjaan.edit') }}" +'/' + website_id2, function (data) {
                             $('#modelHeading').html("Edit Pekerjaan");
                             $('#saveBtn').val("edit-user");
-                            $('#ajaxModel').modal('show');
-                            $('#website_id').val(data.id);
-                            $('#namaPerusahaan').val(data.namaPerusahaan);
-                            $('#posisiPekerjaan').val(data.posisiPekerjaan);
-                            $('#kategoriPekerjaan').val(data.kategoriPekerjaan);
-                            $('#lokasiPekerjaan').val(data.lokasiPekerjaan);
-                            $('#deskripsiPekerjaan').val(data.deskripsiPekerjaan);
-                            $('#status').val(data.status);
+                            $('#ajaxModel2').modal('show');
+                            $('#website_id2').val(data.id);
+                            $('#namaPerusahaan2').val(data.namaPerusahaan);
+                            $('#posisiPekerjaan2').val(data.posisiPekerjaan);
+                            $('#kategoriPekerjaan2').val(data.kategoriPekerjaan);
+                            $('#lokasiPekerjaan2').val(data.lokasiPekerjaan);
+                            $('#deskripsiPekerjaan2').val(data.deskripsiPekerjaan);
+                            $('#status2').val(data.status);
                         });
                     });
                 }
@@ -139,7 +194,6 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
-    });
 
         //Click Add Button
         $('#createNewPekerjaan').click(function () {
@@ -172,22 +226,29 @@
                 $('#saveBtn').html('Save Changes');
             }
         });
+    });
 
-        // $('body').on('click', '.editPekerjaan', function () {
-        //     var website_id = $(this).data('id');
-        //     $.get("{{ route('pekerjaan.edit') }}" +'/' + website_id +'/edit', function (data) {
-        //         $('#modelHeading').html("Edit Website");
-        //         $('#saveBtn').val("edit-user");
-        //         $('#ajaxModel').modal('show');
-        //         $('#website_id').val(data.id);
-        //         $('#namaPerusahaan').val(data.namaPerusahaan);
-        //         $('#posisiPekerjaan').val(data.posisiPekerjaan);
-        //         $('#kategoriPekerjaan').val(data.kategoriPekerjaan);
-        //         $('#lokasiPekerjaan').val(data.lokasiPekerjaan);
-        //         $('#deskripsiPekerjaan').val(data.deskripsiPekerjaan);
-        //         $('#status').val(data.status);
-        //     })
-        // });
+        $('#saveBtnEdit').click(function (e) {
+            e.preventDefault();
+            $(this).html('Sending..');
+            var website_id = $(this).data('id');
+
+            $.ajax({
+            data: $('#pekerjaanFormDua').serialize(),
+            url: "{{ route('pekerjaan.ubah') }}" +'/' + website_id2.value,
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                $('#pekerjaanFormDua').trigger("reset");
+                $('#ajaxModel2').modal('hide');
+                table.draw();
+            
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#saveBtnEdit').html('Save Changes');
+            }
+        });
 
         //Delete 
         $('body').on('click', '.deletePekerjaan', function () {

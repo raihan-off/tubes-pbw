@@ -53,6 +53,20 @@ class BukuController extends Controller
         return response()->json($data);
     }
 
+    public function ubahBuku(Request $request, $id)
+    {
+        $info = Buku::find($id);
+        $info->judul = $request->judul2;
+        $info->penerbit = $request->penerbit2;
+        $info->kategori = $request->kategori2;
+        $info->jumlahHalaman = $request->jumlahHalaman2;
+
+        $info->save();
+        return response()->json([
+            "success" => true,
+        ]);
+    }
+
     public function hapusBuku($id)
     {
         Buku::find($id)->delete();

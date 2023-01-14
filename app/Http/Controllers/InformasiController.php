@@ -61,6 +61,21 @@ class InformasiController extends Controller
         return response()->json($data);
     }
 
+    public function ubahInformasi(Request $request, $id)
+    {
+        $info = Informasi::find($id);
+        $info->website = $request->website;
+        $info->tautan = $request->tautan;
+        $info->kategori = $request->kategori;
+        $info->subKategori = $request->subKategori;
+        $info->deskripsi = $request->deskripsi;
+
+        $info->save();
+        return response()->json([
+            "success" => true,
+        ]);
+    }
+
     public function hapusInformasi($id)
     {
         Informasi::find($id)->delete();

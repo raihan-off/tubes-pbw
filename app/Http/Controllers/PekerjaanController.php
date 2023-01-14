@@ -60,6 +60,22 @@ class PekerjaanController extends Controller
         return response()->json($data);
     }
 
+    public function ubahPekerjaan(Request $request, $id)
+    {
+        $info = Pekerjaan::find($id);
+        $info->namaPerusahaan = $request->namaPerusahaan2;
+        $info->posisiPekerjaan = $request->posisiPekerjaan2;
+        $info->kategoriPekerjaan = $request->kategoriPekerjaan2;
+        $info->lokasiPekerjaan = $request->lokasiPekerjaan2;
+        $info->deskripsiPekerjaan = $request->deskripsiPekerjaan2;
+        $info->status = $request->status2;
+
+        $info->save();
+        return response()->json([
+            "success" => true,
+        ]);
+    }
+
     public function hapusPekerjaan($id)
     {
         Pekerjaan::find($id)->delete();

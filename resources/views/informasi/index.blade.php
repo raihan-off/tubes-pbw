@@ -85,6 +85,55 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="ajaxModelDua" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modelHeading"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="websiteFormDua" name="websiteFormDua" class="form-horizontal">
+                                <input type="hidden" name="website_id2" id="website_id2">
+                                    <div class="form-group">
+                                        <label for="name" class="col-sm-2 control-label">Nama Website</label>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" id="website2" name="website" placeholder="Masukkan nama website" maxlength="50" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Tautan</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="tautan2" name="tautan" placeholder="Masukkan Tautan" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Kategori</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="kategori2" name="kategori" placeholder="Masukkan Kategori" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Sub Kategori</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="subKategori2" name="subKategori" placeholder="Masukkan Sub Kategori" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Deksripsi</label>
+                                        <div class="col-sm-12">
+                                            <textarea id="deskripsi2" name="deskripsi" placeholder="Masukkan Deskripsi" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary" id="saveBtnEdit">Save changes
+                                    </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -97,26 +146,25 @@
         });
 
         //Render Table
-        $(function () {
             var table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: "{{ route('informasi') }}",
                 complete: () => {
-                    //Edit
+                    //Show Edit Modal
                     $('.editInformasi').on('click', function () {
-                        var website_id = $(this).data('id');
-                        $.get("{{ route('informasi.edit') }}" +'/' + website_id, function (data) {
+                        var website_id2 = $(this).data('id');
+                        $.get("{{ route('informasi.edit') }}" +'/' + website_id2, function (data) {
                             $('#modelHeading').html("Edit Website");
-                            $('#saveBtn').val("edit-user");
-                            $('#ajaxModel').modal('show');
-                            $('#website_id').val(data.id);
-                            $('#website').val(data.website);
-                            $('#tautan').val(data.tautan);
-                            $('#kategori').val(data.kategori);
-                            $('#subKategori').val(data.subKategori);
-                            $('#deskripsi').val(data.deskripsi);
+                            $('#saveBtnEdit').val("edit-user");
+                            $('#ajaxModelDua').modal('show');
+                            $('#website_id2').val(data.id);
+                            $('#website2').val(data.website);
+                            $('#tautan2').val(data.tautan);
+                            $('#kategori2').val(data.kategori);
+                            $('#subKategori2').val(data.subKategori);
+                            $('#deskripsi2').val(data.deskripsi);
                         });
                     });
                 }
@@ -131,9 +179,9 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
-    });
+    
 
-        //Click Add Button
+        //Show Create Modal
         $('#createNewInformasi').click(function () {
             $('#saveBtn').val("create-product");
             $('#website_id').val('');
@@ -142,7 +190,7 @@
             $('#ajaxModel').modal('show');
         });
 
-        //Create data
+        //Create Event
         $('#saveBtn').click(function (e) {
             e.preventDefault();
             $(this).html('Sending..');
@@ -164,47 +212,32 @@
                 $('#saveBtn').html('Save Changes');
             }
         });
+    });
 
-        //Edit function
-        // $('.saveEditBtn').click(function (e) {
-        //     e.preventDefault();
-        //     $(this).html('Sending..');
+        //Edit Event
+        $('#saveBtnEdit').click(function (e) {
+            e.preventDefault();
+            $(this).html('Sending..');
+            var website_id = $(this).data('id');
 
-        //     $.ajax({
-        //     data: $('#websiteForm').serialize(),
-        //     url: "{{ route('informasi.edit') }}",
-        //     type: "POST",
-        //     dataType: 'json',
-        //     success: function (data) {
-
-        //         $('#websiteForm').trigger("reset");
-        //         $('#ajaxModel').modal('hide');
-        //         table.draw();
+            $.ajax({
+            data: $('#websiteFormDua').serialize(),
+            url: "{{ route('informasi.ubah') }}" +'/' + website_id2.value,
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                $('#websiteFormDua').trigger("reset");
+                $('#ajaxModelDua').modal('hide');
+                table.draw();
             
-        //     },
-        //     error: function (data) {
-        //         console.log('Error:', data);
-        //         $('#saveEditBtn').html('Save Changes');
-        //     }
-        // });
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#saveBtnEdit').html('Save Changes');
+            }
+        });
 
-        //Edit
-        // $('.edit').on('click', function () {
-        //     var website_id = $(this).data('id');
-        //     $.get("{{ route('informasi.edit') }}" +'/' + website_id +'/edit', function (data) {
-        //         $('#modelHeading').html("Edit Website");
-        //         $('#saveBtn').val("edit-user");
-        //         $('#ajaxModel').modal('show');
-        //         $('#website_id').val(data.id);
-        //         $('#website').val(data.website);
-        //         $('#tautan').val(data.tautan);
-        //         $('#kategori').val(data.kategori);
-        //         $('#subKategori').val(data.subKategori);
-        //         $('#deskripsi').val(data.deskripsi);
-        //     })
-        // });
-
-        //Delete 
+        //Delete Event
         $('body').on('click', '.deleteInformasi', function () {
     
             var website_id = $(this).data("id");
