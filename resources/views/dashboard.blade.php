@@ -11,6 +11,9 @@
                 <div class="p-6 text-gray-900">
                     {{ __("Selamat Datang Admin Guide.in") }}
                 </div>
+                <div class="gambar" style="margin-left: 25%; width: 45%">
+                    <img class="welcome-image" src="img/welcome.jpeg" alt="welcome-img">
+                </div>
             </div>
         </div>
     </div>
